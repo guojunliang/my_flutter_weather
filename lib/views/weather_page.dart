@@ -5,6 +5,9 @@ import 'package:my_flutter_weather/views/weather_first_page.dart';
 import 'package:my_flutter_weather/views/weather_second_page.dart';
 import 'package:my_flutter_weather/modle/page_event.dart';
 import 'dart:convert';
+import 'dart:io';
+import 'package:http/http.dart' as http;
+import 'package:my_flutter_weather/api/api.dart';
 
 class WeatherPage extends StatefulWidget {
   @override
@@ -36,9 +39,11 @@ class WeatherState extends State<WeatherPage> {
   Widget build(BuildContext context) {
     if (weatherJson.isNotEmpty) {
       var decode = json.decode(weatherJson);
+      print("decode:$decode");
       var weatherBean = WeatherBean.fromJson(decode);
       if (weatherBean.status == 0) {
-        weatherResult = weatherBean.reslut;
+        weatherResult = weatherBean.result;
+        print("weatherBean:$weatherBean");
         loadState = 1;
       } else {
         loadState = 0;
@@ -51,18 +56,18 @@ class WeatherState extends State<WeatherPage> {
   }
 
   Widget _buildeContent(BuildContext context) {
-    loadState = 1;
+//    loadState = 1;
     if (loadState == 2) {
       return ProgressView();
     } else if (loadState == 1) {
 //      return   WeatherFirstPage();
-      return PageView(
-        scrollDirection: Axis.vertical, controller: _pageController,
-        children: <Widget>[
-          WeatherFirstPage(),
-          WeatherFirstPage(),
-//          WeatherSecondPage(),
-        ],);
+      return
+        Expanded(child: PageView(
+          scrollDirection: Axis.vertical, controller: _pageController,
+          children: <Widget>[
+            WeatherFirstPage(weatherResult),
+            WeatherSecondPage(),
+          ],),);
     }
   }
 
@@ -93,7 +98,14 @@ class WeatherState extends State<WeatherPage> {
   }
 
   Future<String> _loadWeatherData() async {
-
+    if (city.isEmpty) {
+      city = "杭州";
+    }
+    var response = await http.get(Api.WEATHER_QUERY + city);
+    setState(() {
+      weatherJson = response.body;
+      print("json:$weatherJson");
+    });
   }
 
 }

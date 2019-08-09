@@ -1,14 +1,14 @@
 import 'package:json_annotation/json_annotation.dart';
 
 part 'weather_bean.g.dart';
-
+//flutter packages pub run build_runner build
 @JsonSerializable()
 class WeatherBean {
   int status;
   String msg;
-  WeatherResult reslut;
+  WeatherResult result;
 
-  WeatherBean({this.status, this.msg, this.reslut});
+  WeatherBean({this.status, this.msg, this.result});
 
   factory WeatherBean.fromJson(Map<String, dynamic> json){
     return _$WeatherBeanFromJson(json);
@@ -16,6 +16,11 @@ class WeatherBean {
 
   Map<String, dynamic> toJson() {
     return _$WeatherBeanToJson(this);
+  }
+
+  @override
+  String toString() {
+    return 'WeatherBean{status: $status, msg: $msg, result: $result}';
   }
 }
 
@@ -49,6 +54,12 @@ class WeatherResult {
   factory WeatherResult.fromJson(Map<String, dynamic> json){
     return _$WeatherResultFromJson(json);
   }
+
+  @override
+  String toString() {
+    return 'WeatherResult{city: $city, citycode: $citycode, date: $date, week: $week, weather: $weather, temp: $temp, temphigh: $temphigh, templow: $templow, img: $img, humidity: $humidity, pressure: $pressure, windspeed: $windspeed, winddirect: $winddirect, windpower: $windpower, updatetime: $updatetime, aqi: $aqi, indexs: $indexs, dailys: $dailys, hours: $hours}';
+  }
+
 }
 
 @JsonSerializable()

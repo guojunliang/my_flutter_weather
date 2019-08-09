@@ -12,6 +12,6 @@ class WeatherSecondPage extends StatefulWidget {
 class WeatherSecondPageState extends State<WeatherSecondPage> {
   @override
   Widget build(BuildContext context) {
-    return Expanded(child: Text("second page"),);
+    return Center(child: Text("second page"),);
   }
 }

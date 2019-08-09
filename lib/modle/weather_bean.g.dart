@@ -10,9 +10,9 @@ WeatherBean _$WeatherBeanFromJson(Map<String, dynamic> json) {
   return WeatherBean(
     status: json['status'] as int,
     msg: json['msg'] as String,
-    reslut: json['reslut'] == null
+    result: json['result'] == null
         ? null
-        : WeatherResult.fromJson(json['reslut'] as Map<String, dynamic>),
+        : WeatherResult.fromJson(json['result'] as Map<String, dynamic>),
   );
 }
 
@@ -20,7 +20,7 @@ Map<String, dynamic> _$WeatherBeanToJson(WeatherBean instance) =>
     <String, dynamic>{
       'status': instance.status,
       'msg': instance.msg,
-      'reslut': instance.reslut,
+      'result': instance.result,
     };
 
 WeatherResult _$WeatherResultFromJson(Map<String, dynamic> json) {
