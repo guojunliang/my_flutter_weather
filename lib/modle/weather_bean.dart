@@ -42,14 +42,14 @@ class WeatherResult {
   final String windpower; //风级
   final String updatetime; //更新时间
   final Aqi aqi;
-  final List<WeatherIndex> indexs; //生活指数
-  final List<WeatherDaily> dailys; //一周天气
-  final List<WeatherHourly> hours;
+  final List<WeatherIndex> index; //生活指数
+  final List<WeatherDaily> daily; //一周天气
+  final List<WeatherHourly> hourly;
 
   WeatherResult({this.city, this.citycode, this.date, this.week, this.weather,
     this.temp, this.temphigh, this.templow, this.img, this.humidity,
     this.pressure, this.windspeed, this.winddirect, this.windpower,
-    this.updatetime, this.aqi, this.indexs, this.dailys, this.hours}); //24小时天气
+    this.updatetime, this.aqi, this.index, this.daily, this.hourly}); //24小时天气
 
   factory WeatherResult.fromJson(Map<String, dynamic> json){
     return _$WeatherResultFromJson(json);
@@ -57,7 +57,7 @@ class WeatherResult {
 
   @override
   String toString() {
-    return 'WeatherResult{city: $city, citycode: $citycode, date: $date, week: $week, weather: $weather, temp: $temp, temphigh: $temphigh, templow: $templow, img: $img, humidity: $humidity, pressure: $pressure, windspeed: $windspeed, winddirect: $winddirect, windpower: $windpower, updatetime: $updatetime, aqi: $aqi, indexs: $indexs, dailys: $dailys, hours: $hours}';
+    return 'WeatherResult{city: $city, citycode: $citycode, date: $date, week: $week, weather: $weather, temp: $temp, temphigh: $temphigh, templow: $templow, img: $img, humidity: $humidity, pressure: $pressure, windspeed: $windspeed, winddirect: $winddirect, windpower: $windpower, updatetime: $updatetime, aqi: $aqi, index: $index, daily: $daily, hourly: $hourly}';
   }
 
 }

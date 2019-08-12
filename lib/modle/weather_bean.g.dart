@@ -43,15 +43,15 @@ WeatherResult _$WeatherResultFromJson(Map<String, dynamic> json) {
     aqi: json['aqi'] == null
         ? null
         : Aqi.fromJson(json['aqi'] as Map<String, dynamic>),
-    indexs: (json['indexs'] as List)
+    index: (json['index'] as List)
         ?.map((e) =>
             e == null ? null : WeatherIndex.fromJson(e as Map<String, dynamic>))
         ?.toList(),
-    dailys: (json['dailys'] as List)
+    daily: (json['daily'] as List)
         ?.map((e) =>
             e == null ? null : WeatherDaily.fromJson(e as Map<String, dynamic>))
         ?.toList(),
-    hours: (json['hours'] as List)
+    hourly: (json['hourly'] as List)
         ?.map((e) => e == null
             ? null
             : WeatherHourly.fromJson(e as Map<String, dynamic>))
@@ -77,9 +77,9 @@ Map<String, dynamic> _$WeatherResultToJson(WeatherResult instance) =>
       'windpower': instance.windpower,
       'updatetime': instance.updatetime,
       'aqi': instance.aqi,
-      'indexs': instance.indexs,
-      'dailys': instance.dailys,
-      'hours': instance.hours,
+      'index': instance.index,
+      'daily': instance.daily,
+      'hour': instance.hourly,
     };
 
 WeatherIndex _$WeatherIndexFromJson(Map<String, dynamic> json) {

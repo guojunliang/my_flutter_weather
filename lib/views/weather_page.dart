@@ -66,7 +66,7 @@ class WeatherState extends State<WeatherPage> {
           scrollDirection: Axis.vertical, controller: _pageController,
           children: <Widget>[
             WeatherFirstPage(weatherResult),
-            WeatherSecondPage(),
+            WeatherSecondPage(weatherResult),
           ],),);
     }
   }
@@ -99,13 +99,20 @@ class WeatherState extends State<WeatherPage> {
 
   Future<String> _loadWeatherData() async {
     if (city.isEmpty) {
-      city = "杭州";
+      city = "北京";
     }
-    var response = await http.get(Api.WEATHER_QUERY + city);
-    setState(() {
-      weatherJson = response.body;
-      print("json:$weatherJson");
-    });
+    try {
+      var response = await http.get(Api.WEATHER_QUERY + city);
+      setState(() {
+        weatherJson = response.body;
+        print("json:$weatherJson");
+      });
+    } catch (e) {
+      print("exception:$e");
+      setState(() {
+        loadState = 0;
+      });
+    }
   }
 
 }
