@@ -8,6 +8,9 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:my_flutter_weather/api/api.dart';
+import 'package:my_flutter_weather/routers/application.dart';
+import 'package:my_flutter_weather/routers/routers.dart';
+import 'package:my_flutter_weather/util/sp_util.dart';
 
 class WeatherPage extends StatefulWidget {
   @override
@@ -32,7 +35,13 @@ class WeatherState extends State<WeatherPage> {
         eventBus.fire(PageEvent());
       }
     });
-    _loadWeatherData();
+    SpUtil.getInstance().then((sp) {
+      city = sp.getString("city");
+      if (city == null) {
+        city = "北京";
+      }
+      _loadWeatherData();
+    });
   }
 
   @override
@@ -93,14 +102,26 @@ class WeatherState extends State<WeatherPage> {
               Icon(Icons.location_on, size: 20, color: Colors.white,)
             ],),
           onTap: () {
-
-          },));
+            var navigateTo = Application.router.navigateTo(
+                context, Routers.pageCity);
+            navigateTo.then((value) {
+              if (value != null) {
+                setState(() {
+                  loadState = 2;
+                });
+                city = value.toString();
+                _loadWeatherData();
+                SpUtil.getInstance().then((sp) {
+                  sp.setString("city", city);
+                });
+              }
+            }
+            );
+          }
+          ,));
   }
 
   Future<String> _loadWeatherData() async {
-    if (city.isEmpty) {
-      city = "北京";
-    }
     try {
       var response = await http.get(Api.WEATHER_QUERY + city);
       setState(() {

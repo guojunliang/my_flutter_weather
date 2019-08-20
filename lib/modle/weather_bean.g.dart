@@ -79,7 +79,7 @@ Map<String, dynamic> _$WeatherResultToJson(WeatherResult instance) =>
       'aqi': instance.aqi,
       'index': instance.index,
       'daily': instance.daily,
-      'hour': instance.hourly,
+      'hourly': instance.hourly,
     };
 
 WeatherIndex _$WeatherIndexFromJson(Map<String, dynamic> json) {

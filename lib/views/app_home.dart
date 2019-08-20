@@ -13,7 +13,7 @@ class AppHome extends StatefulWidget {
 
 class AppHomeState extends State<AppHome> {
   List<Widget> _widgets = [];
-  int _currentIndex = 0;
+  int _currentIndex = 1;
 
   @override
   void initState() {
